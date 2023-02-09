@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:testapp/components/authTextField.dart';
-
+import 'package:testapp/controllers/databaseController.dart';
 import '../../constants/constants.dart';
 
 class SignInPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: mainOrangeColor,
       body: _SignInHome(),
     );
@@ -17,8 +17,11 @@ class SignInPage extends StatelessWidget {
 }
 
 class _SignInHome extends StatelessWidget {
-  const _SignInHome({super.key});
-
+   _SignInHome({super.key});
+  
+  //createing an object from database controller
+  DatabaseController db = DatabaseController();
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -113,19 +116,30 @@ class _SignInHome extends StatelessWidget {
                   //THE SIGN IN BUTTON 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: defaultPaddingSpace),
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        color: mainDarkColor,
-                      ),
-                      child: const Padding( padding: EdgeInsets.all(15.0),
-                        child: Text(
-                          "Registration",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: mainOrangeColor,
+                    child: GestureDetector(
+                      onTap: () {
+                        db.addUserToDataBase(
+                          userName: 'amir', 
+                          phoneNumber: '89658494262', 
+                          userPassword: '1234567', 
+                          userEmail: 'testAmir@test.ru',
+                          );
+
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          color: mainDarkColor,
+                        ),
+                        child: const Padding( padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            "Registration",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: mainOrangeColor,
+                            ),
                           ),
                         ),
                       ),

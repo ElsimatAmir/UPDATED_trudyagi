@@ -42,9 +42,19 @@ dependencies:
   # the navigation bottom bar in user main page
   curved_navigation_bar: ^1.0.3
 
+  #firebase core
+  firebase_core: ^2.4.1
+  
+  #firebaseStore cloud
+  cloud_firestore: ^4.3.1
+
+  #for getting a nice snackbars by this package
+  awesome_snackbar_content: ^0.1.0
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.2.6
 
 dev_dependencies:
   flutter_test:
