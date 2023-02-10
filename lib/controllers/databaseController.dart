@@ -6,25 +6,28 @@
       await _usersDataBase.doc(productId).delete;
   */ 
 
-import 'package:testapp/controllers/authController.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseController{ 
-
+final CollectionReference _usersDataBase = FirebaseFirestore.instance.collection('users');
+ 
  addUserToDataBase({
   required String userName,
   required String phoneNumber, 
-  required String userPassword, 
   required String userEmail,
+  required String userID,
   }) async {
-    final AuthController auth = AuthController();
-    //check if data courrect or not empty
-
-    //try to creaty user 
-    Future<String> result =  auth.createUser(userEmail, userPassword, phoneNumber, userEmail);
-
-    
-    //if user created add to database with document name = uid that get back from secsess createUser by password and email
- 
+    print("\n creating user with name=$userName \n num = $phoneNumber\n email = $userEmail \n uid user = $userID \n");
+   //adding to database with document where id is uid
+   try{
+    await _usersDataBase.doc(userID).set({{
+      "userName": userName, 
+      "userPhoneNumber": phoneNumber, 
+      "userEmail": userEmail
+      }});
+   }catch(e){
+    return;
+   }
  
  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
+  final dynamic textController;
   final String hintTextValue;
   final bool obscurveText;
   final Icon iconName;
@@ -9,6 +10,7 @@ class AuthTextField extends StatelessWidget {
 
   const AuthTextField({
     super.key,
+    required this.textController,
     required this.hintTextValue,
     required this.obscurveText,
     required this.iconName,
@@ -22,7 +24,7 @@ class AuthTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: TextField(
         obscureText: obscurveText,
-
+        controller: textController,
         decoration: InputDecoration(
           suffixIcon: iconName,
           enabledBorder: OutlineInputBorder(

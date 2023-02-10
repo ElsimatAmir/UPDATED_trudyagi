@@ -1,0 +1,6 @@
+
+class Client{
+
+  Client(currentUserUID);
+
+}

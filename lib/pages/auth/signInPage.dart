@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:testapp/components/authTextField.dart';
+import 'package:testapp/controllers/authController.dart';
 import 'package:testapp/controllers/databaseController.dart';
 import '../../constants/constants.dart';
 
@@ -21,7 +22,14 @@ class _SignInHome extends StatelessWidget {
   
   //createing an object from database controller
   DatabaseController db = DatabaseController();
- 
+  AuthController authController = AuthController();
+  
+  //inputs from the user to sign in and create a new user 
+  TextEditingController nameInput = TextEditingController();
+  TextEditingController emailInput = TextEditingController();
+  TextEditingController passwordInput = TextEditingController();
+  TextEditingController phoneNumberInput = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -79,34 +87,38 @@ class _SignInHome extends StatelessWidget {
                   //inputs fieds from the user to get data 
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children:  [
                       AuthTextField(
                         hintTextValue: 'Name',
-                        iconName: Icon(Icons.person),
+                        textController: nameInput,
+                        iconName: const Icon(Icons.person),
                         obscurveText: false,
                         borderColor: mainOrangeColor,
                         focusBorderColor: mainDarkColor,
                       ),
-                      SizedBox(height: defaultPaddingSpace),
+                      const SizedBox(height: defaultPaddingSpace),
                       AuthTextField(
+                        textController: emailInput,
                         hintTextValue: 'Gmail',
-                        iconName: Icon(Icons.email),
+                        iconName: const Icon(Icons.email),
                         obscurveText: false,
                         borderColor: mainOrangeColor,
                         focusBorderColor: mainDarkColor,
                       ),
-                      SizedBox(height: defaultPaddingSpace),
+                      const SizedBox(height: defaultPaddingSpace),
                       AuthTextField(
+                        textController: phoneNumberInput,
                         hintTextValue: 'PhoneNumber',
-                        iconName: Icon(Icons.phone),
+                        iconName: const Icon(Icons.phone),
                         obscurveText: false,
                         borderColor: mainOrangeColor,
                         focusBorderColor: mainDarkColor,
                       ),
-                      SizedBox(height: defaultPaddingSpace),
+                      const SizedBox(height: defaultPaddingSpace),
                       AuthTextField(
+                        textController: passwordInput,
                         hintTextValue: 'Password',
-                        iconName: Icon(Icons.lock),
+                        iconName: const Icon(Icons.lock),
                         obscurveText: true,
                         borderColor: mainOrangeColor,
                         focusBorderColor: mainDarkColor,
@@ -118,12 +130,13 @@ class _SignInHome extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: defaultPaddingSpace),
                     child: GestureDetector(
                       onTap: () {
-                        db.addUserToDataBase(
-                          userName: 'amir', 
-                          phoneNumber: '89658494262', 
-                          userPassword: '1234567', 
-                          userEmail: 'testAmir@test.ru',
-                          );
+                        // here should pass a data from auth text fild 
+                          authController.createUser(
+                            userName: nameInput.text,
+                            userEmail: emailInput.text,
+                            userPassword: passwordInput.text, 
+                            phoneNumber: phoneNumberInput.text,
+                            );
 
                       },
                       child: Container(
