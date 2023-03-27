@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:testapp/controllers/databaseController.dart';
 import 'package:testapp/models/client.dart';
 
 abstract class IAuthController {
-  Future<String> loginIn(dynamic context, String email, String password);
+  Future<String> loginIn(BuildContext context, String email, String password);
   Future<String> createUser({required Client newClient});
   Future getCurrentUser();
   Future<void> signOut();
@@ -25,12 +27,13 @@ class AuthController implements IAuthController {
   }
 
   @override
-  Future<String> loginIn(context, String email, String password) async {
+  Future<String> loginIn(
+      BuildContext context, String email, String password) async {
+    final BuildContext c;
     try {
       UserCredential firebaseUser = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
-      //TODO: fix the route!!!
-      context.router.pushNamed("/userMainScreen");
+      context.router.pushNamed('/userMainScreen');
       return firebaseUser.user!.uid;
     } catch (e) {
       return "ERROR:$e";
